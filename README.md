@@ -22,3 +22,11 @@
 4) Select Checkout Windows-style, commit Unix-style line endings (If you are on Mac OS X, select Checkout as-is, commit Unix-style line endings instead)
 5) Next selection is your choice, but I recommend using MinTTY
 6) For the rest of the options, use the defaults on your machine (do no select or deselect additional checkboxes)
+
+# Make a Github account
+1) Go to https://www.github.com and create a free account
+
+# Git Kraken and Glo Boards
+1) Go to https://www.gitkraken.com/ and download the git GUI and sign up for the the Glo Boards
+2) Sign in using GitHub on both GitKraken and Glo
+30 Access our Glo board at https://app.gitkraken.com/glo/board/XcLx5FuFhQAPHWA8 or open it directly through GitKraken
