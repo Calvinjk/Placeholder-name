@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour{
             }
         }
 
-        // 
+        // Move.  That.  Player!
         Move(horizontalInput * Time.fixedDeltaTime, jumpInput);
     }
 
