@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour{
     }
 
     // Use this function to move your character.
-    public void Move(float move, bool jump) {
+    private void Move(float move, bool jump) {
         if (isGrounded || airControl) {
             // Move the character by finding the target velocity and then smoothing it out and applying it to the character
             Vector2 targetVelocity = new Vector2(move * moveSpeed, rb.velocity.y);
@@ -55,9 +55,11 @@ public class PlayerController : MonoBehaviour{
         }
 
         // Jump by simply adding a force to the rigidbody on this object
-        if (isGrounded && jump) {
-            rb.AddForce(new Vector2(0f, jumpForce));
-            isGrounded = false;
+        if (jump) {
+            if (isGrounded) {
+                rb.AddForce(new Vector2(0f, jumpForce));
+                isGrounded = false;
+            }
             jumpInput = false;
         }
     }
