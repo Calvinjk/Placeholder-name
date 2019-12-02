@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
-    public float jumpForce = 100f;                              // Amount of force added when the player jumps
+    public enum PlayerNumber{ one, two, three, four };
+    
+    public PlayerNumber player = PlayerNumber.one;
+    public float minJumpHeight = 1f;
+    public float maxJumpHeight = 10f;
+    public float timeToJumpApex = .4f;
     public float moveSpeed = 10f;                               // How fast the player moves
     [Range(0, 0.3f)] public float movementSmoothing = 0.05f;    // How much to smooth the movement
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
@@ -12,11 +17,13 @@ public class PlayerController : MonoBehaviour{
     public bool ___________________________;    // Inspector divider between "public" and "private" variables.
 
     const float groundedRadius = .05f;          // Radius of the overlap circle to determine if grounded
-    private bool isGrounded;                    // Whether or not the player is grounded.
+    public bool isGrounded;                    // Whether or not the player is grounded.
     private Rigidbody2D rb;                     // The rigidbody attached to this object, set in start
     private Vector2 velocity = Vector3.zero;    // Reference vector for smoothdamp
-    private float horizontalInput;              // Horizontal movement input from the user 
-    private bool jumpInput;                     // Jumping input from the user
+    public float horizontalInput;              // Horizontal movement input from the user 
+    public bool jumpInput;                     // Jumping input from the user
+    public float minJumpVelocity;
+    public float maxJumpVelocity;
 
     // This function is caled only once: The moment this script instance comes into being!
     private void Awake() {
@@ -26,8 +33,13 @@ public class PlayerController : MonoBehaviour{
 
     // This function is called once per frame.  Use this to get inputs from the user.
     private void Update() {
-        horizontalInput = InputManager.MainJoystick().x;
-        if (InputManager.JumpButton()) { jumpInput = true; } 
+        horizontalInput = InputManager.HorizontalAxis() * Time.fixedDeltaTime;
+        jumpInput = InputManager.JumpButton();
+
+        // Calculate the jump velocities
+        float gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
     }
 
     // This function is called zero, once, or multiple times per frame depending on the framerate of the computer.  Use this for all physics calculations.
@@ -35,6 +47,7 @@ public class PlayerController : MonoBehaviour{
         bool wasGrounded = isGrounded;
 
         // The player is "grounded" if a circlecast at the groundCheck position hits any layer designated as ground
+        isGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, groundLayers);
         for (int i = 0; i < colliders.Length; ++i) {
             if(colliders[i].gameObject != gameObject) {
@@ -43,24 +56,26 @@ public class PlayerController : MonoBehaviour{
         }
 
         // Move.  That.  Player!
-        Move(horizontalInput * Time.fixedDeltaTime, jumpInput);
+        Move();
     }
 
     // Use this function to move your character.
-    private void Move(float move, bool jump) {
+    private void Move() {
         if (isGrounded || airControl) {
             // Move the character by finding the target velocity and then smoothing it out and applying it to the character
-            Vector2 targetVelocity = new Vector2(move * moveSpeed, rb.velocity.y);
+            Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
             rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         }
 
-        // Jump by simply adding a force to the rigidbody on this object
-        if (jump) {
-            if (isGrounded) {
-                rb.AddForce(new Vector2(0f, jumpForce));
-                isGrounded = false;
+        // If the player is pressing the jump button, we want to jump!
+        if (jumpInput) {
+            if (isGrounded && rb.velocity.x < maxJumpVelocity) {
+                rb.velocity = new Vector2(rb.velocity.x, maxJumpVelocity);
             }
-            jumpInput = false;
+        } else {
+            if (rb.velocity.y > minJumpVelocity){
+                rb.velocity = new Vector2(rb.velocity.x, minJumpVelocity);
+            }
         }
     }
 }
