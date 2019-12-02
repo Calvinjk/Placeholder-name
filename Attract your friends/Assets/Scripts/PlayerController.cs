@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour{
 
     // This function is called once per frame.  Use this to get inputs from the user.
     private void Update() {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump")) { jumpInput = true; } 
+        horizontalInput = InputManager.MainJoystick().x;
+        if (InputManager.JumpButton()) { jumpInput = true; } 
     }
 
     // This function is called zero, once, or multiple times per frame depending on the framerate of the computer.  Use this for all physics calculations.
