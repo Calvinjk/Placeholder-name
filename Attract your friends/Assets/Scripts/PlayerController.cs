@@ -3,27 +3,24 @@
 public class PlayerController : MonoBehaviour{
     public enum PlayerNumber{ one, two, three, four };
     
-    public PlayerNumber player = PlayerNumber.one;
-    public float minJumpHeight = 1f;
-    public float maxJumpHeight = 10f;
-    public float timeToJumpApex = .4f;
+    public PlayerNumber player = PlayerNumber.one;              // What player number this character is
+    public float minJumpHeight = 1f;                            // Minimum height the character reaches when jumping
+    public float maxJumpHeight = 10f;                           // Max height the character can reach when jumping
+    public float timeToJumpApex = .4f;                          // How long it takes the player to reach max height
     public float moveSpeed = 10f;                               // How fast the player moves
     [Range(0, 0.3f)] public float movementSmoothing = 0.05f;    // How much to smooth the movement
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
     public Transform groundCheck;                               // A position at which to check if a player is grounded
     public bool airControl;                                     // Whether or not a character can move while in the air
 
-    [Tooltip("Do not modify variables below this line in the inspector")]
-    public bool ___________________________;    // Inspector divider between "public" and "private" variables.
-
     const float groundedRadius = .05f;          // Radius of the overlap circle to determine if grounded
-    public bool isGrounded;                    // Whether or not the player is grounded.
+    private bool isGrounded;                    // Whether or not the player is grounded.
     private Rigidbody2D rb;                     // The rigidbody attached to this object, set in start
     private Vector2 velocity = Vector3.zero;    // Reference vector for smoothdamp
-    public float horizontalInput;              // Horizontal movement input from the user 
-    public bool jumpInput;                     // Jumping input from the user
-    public float minJumpVelocity;
-    public float maxJumpVelocity;
+    private float horizontalInput;              // Horizontal movement input from the user 
+    private bool jumpInput;                     // Jumping input from the user
+    private float minJumpVelocity;              // What is the velocity necessary to reach the set minimum jump height
+    private float maxJumpVelocity;              // What is the velocity necessary to reach the set maximum jump height
 
     // This function is caled only once: The moment this script instance comes into being!
     private void Awake() {
@@ -33,8 +30,8 @@ public class PlayerController : MonoBehaviour{
 
     // This function is called once per frame.  Use this to get inputs from the user.
     private void Update() {
-        horizontalInput = InputManager.HorizontalAxis() * Time.fixedDeltaTime;
-        jumpInput = InputManager.JumpButton();
+        horizontalInput = InputManager.HorizontalAxis(player) * Time.fixedDeltaTime;
+        jumpInput = InputManager.JumpButton(player);
 
         // Calculate the jump velocities
         float gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
