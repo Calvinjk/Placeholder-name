@@ -3,7 +3,9 @@
 2) When asked about plans, select the individual tab (as opposed to business), and then select Personal
 3) If you would like included tutorials and guided learning, select First-time Users, otherwise select Returning Users
 4) Accept the terms and begin the download!
-5) You should now have the Unity hub!  From here we need to download a specific version of Unity.  We would like to start at the most recent, so select Installs, then Add.  Select Unity 2019.2.11f1 and add the following features (any extra are up to you): 
+5) You should now have the Unity hub!  From here we need to download a specific version of Unity.  We would like to start at the most recent, so select Installs, then Add.  
+6) Select Unity 2019.2.11f1 (if it is not an option, follow the on-screen prompts to the Download Archive)
+7) Add the following features (any extra are up to you): 
 
 ---Android Build support
 
