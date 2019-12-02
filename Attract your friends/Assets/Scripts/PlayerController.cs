@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour{
         Move();
     }
 
-    // Use this function to move your character.
+    // Moves the character based on player input
     private void Move() {
         if (isGrounded || airControl) {
             // Move the character by finding the target velocity and then smoothing it out and applying it to the character
@@ -66,9 +66,10 @@ public class PlayerController : MonoBehaviour{
 
         // If the player is pressing the jump button, we want to jump!
         if (jumpInput) {
-            if (isGrounded && rb.velocity.x < maxJumpVelocity) {
+            if (isGrounded) {
                 rb.velocity = new Vector2(rb.velocity.x, maxJumpVelocity);
             }
+        // This triggers the moment the player releases the jump button
         } else {
             if (rb.velocity.y > minJumpVelocity){
                 rb.velocity = new Vector2(rb.velocity.x, minJumpVelocity);
