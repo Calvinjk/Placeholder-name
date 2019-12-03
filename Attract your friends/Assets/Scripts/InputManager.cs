@@ -2,16 +2,19 @@
 using System.Collections;
 
 public static class InputManager{
-    public static float HorizontalAxis(PlayerController.PlayerNumber playerNum){
-        float result = 0.0f;
-        result += Input.GetAxis("Horizontal");
-        result += Input.GetAxis("Horizontal_Xbox");
-
-        // Make sure that the player cannot use multiple input types at once
-        return Mathf.Clamp(result, -1.0f, 1.0f);
+    public static float HorizontalAxis(int playerNum){
+        return Input.GetAxis("Horizontal_Xbox");;
     }
 
-    public static bool JumpButton(PlayerController.PlayerNumber playerNum){
+    public static bool PullButton(int playerNum){
+        return Input.GetAxis("LTrigger_Xbox") > 0 ? true : false;
+    }
+
+    public static bool PushButton(int playerNum){
+        return Input.GetAxis("RTrigger_Xbox") > 0 ? true : false;
+    }
+
+    public static bool JumpButton(int playerNum){
         return Input.GetButton("Jump_Xbox") ||
                 Input.GetButton("Jump");
     }
