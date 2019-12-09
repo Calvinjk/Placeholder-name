@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour{
         pullInput = InputManager.PullButton(playerNum);
         pushInput = InputManager.PushButton(playerNum);
 
-        // Calculate the jump velocities
+        // Calculate the jump velocities (This only lives in update so you can dynamically change these values)
         float gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour{
 
     // Moves the character based on player input
     private void Move() {
-        if (isGrounded || airControl) {
+        if (isGrounded || airControl && horizontalInput != 0) {
             // Move the character by finding the target velocity and then smoothing it out and applying it to the character
             Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
             rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
