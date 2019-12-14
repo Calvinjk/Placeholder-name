@@ -33,4 +33,10 @@
 2) Sign in using GitHub on both GitKraken and Glo
 3) Access our Glo board at https://app.gitkraken.com/glo/board/XcLx5FuFhQAPHWA8 or open it directly through GitKraken
 
+--------------------------------------
 Brody "The Johnson" Clarke
+--------------------------------------
+Jake Espinoza has skin and is a prince
+--------------------------------------
+Kayla M. Hockaday - duh bomb
+--------------------------------------
