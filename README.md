@@ -36,5 +36,6 @@
 --------------------------------------
 Jake Espinoza has skin and is a prince
 --------------------------------------
-Jacob Espinoza has skin and is a nerd
+Kayla M. Hockaday - duh bomb
+--------------------------------------
 
