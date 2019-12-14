@@ -32,3 +32,4 @@
 1) Go to https://www.gitkraken.com/ and download the git GUI and sign up for the the Glo Boards
 2) Sign in using GitHub on both GitKraken and Glo
 3) Access our Glo board at https://app.gitkraken.com/glo/board/XcLx5FuFhQAPHWA8 or open it directly through GitKraken
+Kayla M. Hockaday
