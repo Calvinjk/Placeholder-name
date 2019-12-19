@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour{
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
     public Transform groundCheck;                               // A position at which to check if a player is grounded
     public bool airControl;                                     // Whether or not a character can move while in the air
-    const float groundedRadius = .05f;          // Radius of the overlap circle to determine if grounded
+    const float groundedRadius = .05f;                          // Radius of the overlap circle to determine if grounded
 
     // Variables below this line are taken care of in the code.  Do not change them!
 
@@ -128,5 +128,11 @@ public class PlayerController : MonoBehaviour{
                 rb.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
             }
         }
+    }
+
+    // Public interface for adding forces to this object
+    // The purpose of this interface is to regulate how fast this object can accelerate or what its top speed can be
+    public void AddForce(){
+
     }
 }
