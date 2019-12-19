@@ -135,4 +135,10 @@ public class PlayerController : MonoBehaviour{
             }
         }
     }
+
+    // Public interface for adding forces to this object
+    // The purpose of this interface is to regulate how fast this object can accelerate or what its top speed can be
+    public void AddForce(){
+
+    }
 }
