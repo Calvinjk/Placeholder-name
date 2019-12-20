@@ -104,6 +104,7 @@ MonoBehaviour:
   maxJumpHeight: 4
   timeToJumpApex: 0.4
   moveSpeed: 500
+  maxVelocity: 100
   movementSmoothing: 0.05
   influenceLayers:
     serializedVersion: 2
