@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour{
     [Range(0, 0.3f)] public float movementSmoothing = 0.05f;    // How much to smooth the movement
     public LayerMask influenceLayers;                           // A mask determining what players can push and pull
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
-    public Transform groundCheck;                               // A position at which to check if a player is grounded
     public bool airControl;                                     // Whether or not a character can move while in the air
-    public float groundedRadius = .05f;                         // Radius of the overlap circle to determine if grounded
+    public float groundedHeight;                                // Height of the overlap box to determine if grounded
 
     // Variables below this line are taken care of in the code.  Do not change them!
 
+    [SerializeField]
     private bool isGrounded;                    // Whether or not the player is grounded
     private Rigidbody2D rb;                     // The rigidbody attached to this object, set in Awake()
     private Vector2 velocity = Vector3.zero;    // Reference vector for smoothdamp
@@ -53,14 +53,8 @@ public class PlayerController : MonoBehaviour{
 
     // This function is called zero, once, or multiple times per frame depending on the framerate of the computer.  Use this for all physics or time-based calculations
     private void FixedUpdate() {
-        // The player is "grounded" if a circlecast at the groundCheck position hits any layer designated as ground
-        isGrounded = false;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, groundLayers);
-        for (int i = 0; i < colliders.Length; ++i) {
-            if(colliders[i].gameObject != gameObject) {
-                isGrounded = true;
-            }
-        }
+        // Determine if the player is currently grounded
+        isGrounded = CheckIfGrounded();
 
         // Move.  That.  Player!
         Move();
@@ -134,5 +128,28 @@ public class PlayerController : MonoBehaviour{
                 rigidbody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
             }
         }
+    }
+
+    private bool CheckIfGrounded() {
+        // The player is "grounded" if a circlecast at the groundCheck position hits any layer designated as ground
+        bool grounded = false;
+
+        // Calculate where the bottom center of the player is
+        Vector2 groundCheckPosition = new Vector2(transform.position.x, transform.position.y - transform.localScale.y / 2);
+        if (playerNum == 1) { Debug.Log("height: " + groundedHeight); }
+        if (playerNum == 1) { Debug.Log("width: " + transform.localScale.x); }
+
+        // Create a box beneath the player, if that overlaps with something we can jump off of, we are grounded!
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPosition, new Vector2(groundedHeight, transform.localScale.x), 0f, groundLayers);
+        for (int i = 0; i < colliders.Length; ++i) {
+            if (colliders[i].gameObject != gameObject) {
+                grounded = true;
+            }
+        }
+
+        // This is a special case.  We can jump off of other players, but ONLY if they are grounded.
+
+
+        return grounded;
     }
 }
