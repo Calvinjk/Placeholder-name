@@ -13,7 +13,7 @@ public static class InputManager{
     public static bool PullButton(int playerNum){
         bool pullInput = false;
         if (playerNum == 1) {
-            pullInput = Input.GetKey(KeyCode.DownArrow);
+            pullInput = Input.GetKey(KeyCode.K);
         }
         return (Input.GetAxis("LTrigger_Xbox" + playerNum) > 0 ? true : false) || pullInput;
     }
@@ -21,7 +21,7 @@ public static class InputManager{
     public static bool PushButton(int playerNum){
         bool pushInput = false;
         if (playerNum == 1) {
-            pushInput = Input.GetKey(KeyCode.UpArrow);
+            pushInput = Input.GetKey(KeyCode.J);
         }
         return (Input.GetAxis("RTrigger_Xbox" + playerNum) > 0 ? true : false) || pushInput;
     }
