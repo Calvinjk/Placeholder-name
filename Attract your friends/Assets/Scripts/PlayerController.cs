@@ -15,8 +15,9 @@ public class PlayerController : MonoBehaviour{
     [Range(0, 0.3f)] public float movementSmoothing = 0.05f;    // How much to smooth the movement
     public LayerMask influenceLayers;                           // A mask determining what players can push and pull
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
-    public bool airControl;                                     // Whether or not a character can move while in the air
-    public float groundedHeight;                                // Height of the overlap box to determine if grounded
+    public bool airControl = true;                              // Whether or not a character can move while in the air
+    public float groundedHeight = 0.05f;                        // Height of the overlap box to determine if grounded
+    public float groundedWidth = .9f;                           // Percentage of width of player the grounded check is
 
     // Variables below this line are taken care of in the code.  Do not change them!
 
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour{
         bool grounded = false;
 
         // Create a box beneath the player, if that overlaps with something we can jump off of, we are grounded!
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x, groundedHeight), 0f, groundLayers);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x * groundedWidth, groundedHeight), 0f, groundLayers);
         for (int i = 0; i < colliders.Length; ++i) {
             if (colliders[i].gameObject != gameObject) {
                 grounded = true;
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour{
         int layerMask = 1 << LayerMask.NameToLayer("Player");
 
         // Create a box beneath the player, if that overlaps with another player, we are on another player
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x, groundedHeight), 0f, layerMask);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x * groundedWidth, groundedHeight), 0f, layerMask);
         for (int i = 0; i < colliders.Length; ++i) {
             if (colliders[i].gameObject != gameObject && colliders[i].gameObject.GetComponent<PlayerController>().IsGrounded()) {
                 onPlayer = true;
