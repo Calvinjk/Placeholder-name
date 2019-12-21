@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8594313939098648871}
   - component: {fileID: 5127350908179771867}
   - component: {fileID: 3959953828750315128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Generic_Killbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
