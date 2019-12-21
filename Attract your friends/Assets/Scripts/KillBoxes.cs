@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// THIS SCRIPT ONLY WORKS WHEN THERE IS A GAMEMANAGER IN THE SCENE
 public class KillBoxes : MonoBehaviour {
 
-    public GameManager gm;
+    private GameManager gm;
 
     // The moment this object is created, find the GameManager and store a reference to it
     void Awake() {
