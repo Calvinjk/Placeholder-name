@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour{
     public float maxJumpHeight = 10f;                           // Max height the character can reach when jumping
     public float timeToJumpApex = .4f;                          // How long it takes the player to reach max height
     public float moveSpeed = 10f;                               // How fast the player moves
+    public float maxVelocity = 100f;                            // How fast the player can possibly move, all outside forces considered
     [Range(0, 0.3f)] public float movementSmoothing = 0.05f;    // How much to smooth the movement
     public LayerMask influenceLayers;                           // A mask determining what players can push and pull
     public LayerMask groundLayers;                              // A mask determining what to treat as the ground
     public Transform groundCheck;                               // A position at which to check if a player is grounded
     public bool airControl;                                     // Whether or not a character can move while in the air
-    const float groundedRadius = .05f;          // Radius of the overlap circle to determine if grounded
+    const float groundedRadius = .05f;                          // Radius of the overlap circle to determine if grounded
 
     // Variables below this line are taken care of in the code.  Do not change them!
 
@@ -64,6 +65,11 @@ public class PlayerController : MonoBehaviour{
         // Move.  That.  Player!
         Move();
 
+        // Make sure the player never exceeds its maximum speed
+        if (rb.velocity.magnitude > maxVelocity){
+            rb.velocity = rb.velocity.normalized * maxVelocity;
+        }
+
         // Does this player want to push or pull anything?
         if (pullInput) { Pull(); }
         if (pushInput) { Push(); }
@@ -100,12 +106,12 @@ public class PlayerController : MonoBehaviour{
 
         // Loop through each of the players found, and add a force to them towards this object
         for (int i = 0; i < players.Length; ++i) {
-            Rigidbody2D rb = players[i].gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rigidbody = players[i].gameObject.GetComponent<Rigidbody2D>();
             Vector2 pullDirection = transform.position - players[i].gameObject.transform.position;
 
             // We only want to add this force if the object is NOT touching us
             if (!myCollider.IsTouching(players[i])){
-                rb.AddForce(pullDirection.normalized * pullForce, ForceMode2D.Force);
+                rigidbody.AddForce(pullDirection.normalized * pullForce, ForceMode2D.Force);
             } 
         }
     }
@@ -122,10 +128,10 @@ public class PlayerController : MonoBehaviour{
             
             // Loop through each of the players found, and add an impulse force to them away from this object
             for (int i = 0; i < players.Length; ++i){
-                Rigidbody2D rb = players[i].gameObject.GetComponent<Rigidbody2D>();
+                Rigidbody2D rigidbody = players[i].gameObject.GetComponent<Rigidbody2D>();
                 Vector2 pushDirection = -(transform.position - players[i].transform.position);
 
-                rb.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
+                rigidbody.AddForce(pushDirection.normalized * pushForce, ForceMode2D.Impulse);
             }
         }
     }
