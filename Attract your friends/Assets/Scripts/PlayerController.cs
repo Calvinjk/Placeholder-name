@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour{
 
     // Variables below this line are taken care of in the code.  Do not change them!
 
-    [SerializeField]
     private bool isGrounded;                    // Whether or not the player is grounded
+    private bool isOnGroundedPlayer;            // Whether or not the player is on top of another player
     private Rigidbody2D rb;                     // The rigidbody attached to this object, set in Awake()
     private Vector2 velocity = Vector3.zero;    // Reference vector for smoothdamp
     private float horizontalInput;              // Horizontal movement input from the user 
@@ -53,8 +53,9 @@ public class PlayerController : MonoBehaviour{
 
     // This function is called zero, once, or multiple times per frame depending on the framerate of the computer.  Use this for all physics or time-based calculations
     private void FixedUpdate() {
-        // Determine if the player is currently grounded
+        // Determine if the player can jump
         isGrounded = CheckIfGrounded();
+        isOnGroundedPlayer = CheckIfOnGroundedPlayer();
 
         // Move.  That.  Player!
         Move();
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour{
 
         // If the player is pressing the jump button, we want to jump!
         if (jumpInput) {
-            if (isGrounded) {
+            if (isGrounded || isOnGroundedPlayer) {
                 rb.velocity = new Vector2(rb.velocity.x, maxJumpVelocity);
             }
         // This triggers the moment the player releases the jump button
@@ -130,26 +131,45 @@ public class PlayerController : MonoBehaviour{
         }
     }
 
+    // Check if this player is grounded or not
     private bool CheckIfGrounded() {
         // The player is "grounded" if a circlecast at the groundCheck position hits any layer designated as ground
         bool grounded = false;
 
-        // Calculate where the bottom center of the player is
-        Vector2 groundCheckPosition = new Vector2(transform.position.x, transform.position.y - transform.localScale.y / 2);
-        if (playerNum == 1) { Debug.Log("height: " + groundedHeight); }
-        if (playerNum == 1) { Debug.Log("width: " + transform.localScale.x); }
-
         // Create a box beneath the player, if that overlaps with something we can jump off of, we are grounded!
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckPosition, new Vector2(groundedHeight, transform.localScale.x), 0f, groundLayers);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x, groundedHeight), 0f, groundLayers);
         for (int i = 0; i < colliders.Length; ++i) {
             if (colliders[i].gameObject != gameObject) {
                 grounded = true;
             }
         }
 
-        // This is a special case.  We can jump off of other players, but ONLY if they are grounded.
-
-
         return grounded;
+    }
+
+    // This is a special case.  Let players jump off other players, but ONLY if that player is grounded
+    private bool CheckIfOnGroundedPlayer() {
+        bool onPlayer = false;
+        int layerMask = 1 << LayerMask.NameToLayer("Player");
+
+        // Create a box beneath the player, if that overlaps with another player, we are on another player
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBottomOfPlayer(), new Vector2(transform.localScale.x, groundedHeight), 0f, layerMask);
+        for (int i = 0; i < colliders.Length; ++i) {
+            if (colliders[i].gameObject != gameObject && colliders[i].gameObject.GetComponent<PlayerController>().IsGrounded()) {
+                onPlayer = true;
+            }
+        }
+
+        return onPlayer;
+    }
+
+    // This will find and return the bottom center of this character
+    private Vector2 GetBottomOfPlayer() {
+        return new Vector2(transform.position.x, transform.position.y - transform.localScale.y / 2);
+    }
+
+    ///////////////////// Public Interfaces /////////////////////
+    public bool IsGrounded() {
+        return isGrounded;
     }
 }
