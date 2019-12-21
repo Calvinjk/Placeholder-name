@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour{
     // Variables below this line are taken care of in the code.  Do not change them!
 
     private bool isGrounded;                    // Whether or not the player is grounded
-    private Rigidbody2D rb;                     // The rigidbody attached to this object, set in start
+    private Rigidbody2D rb;                     // The rigidbody attached to this object, set in Awake()
     private Vector2 velocity = Vector3.zero;    // Reference vector for smoothdamp
     private float horizontalInput;              // Horizontal movement input from the user 
     private bool jumpInput;                     // Jumping input from the user
