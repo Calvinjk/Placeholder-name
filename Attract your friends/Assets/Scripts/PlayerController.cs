@@ -133,7 +133,6 @@ public class PlayerController : MonoBehaviour{
 
     // Check if this player is grounded or not
     private bool CheckIfGrounded() {
-        // The player is "grounded" if a circlecast at the groundCheck position hits any layer designated as ground
         bool grounded = false;
 
         // Create a box beneath the player, if that overlaps with something we can jump off of, we are grounded!
