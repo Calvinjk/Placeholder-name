@@ -3,6 +3,10 @@ using System.Collections;
 
 public static class InputManager{
     public static float HorizontalAxis(int playerNum){
+        float horizontalInput = 0;
+        if (playerNum == 1){
+            horizontalInput = Input.GetAxis("Horizontal_Keyboard");
+        }
         return Input.GetAxis("Horizontal_Xbox" + playerNum);
     }
 
