@@ -50,6 +50,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CompleteLevel(){
-        SceneManager.LoadScene("Level" + ++curLevel);
+        SceneManager.LoadScene("Level" + (curLevel + 1));
     }
 }
