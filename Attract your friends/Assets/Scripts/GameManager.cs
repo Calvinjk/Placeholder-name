@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+    public int curLevel = 0;
     public float respawnWaitTime = 3f;
     public Vector2 respawnLocation;
 
@@ -45,5 +47,9 @@ public class GameManager : MonoBehaviour {
 
         // Lastly, add the player we want to respawn to the list of players we need to respawn
         playersToRespawn.Add(player);
+    }
+
+    public void CompleteLevel(){
+        SceneManager.LoadScene("Level" + ++curLevel);
     }
 }
