@@ -1220,16 +1220,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 56c902629848426449c9e75a2efb4547, type: 2}
-    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: playerNum
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3274018842467015810, guid: 6a734dbc5219b49469f740027851abc8,
         type: 3}
       propertyPath: m_Color.r
@@ -1245,6 +1235,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: playerNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56c902629848426449c9e75a2efb4547, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a734dbc5219b49469f740027851abc8, type: 3}
 --- !u!4 &365038985 stripped
@@ -1590,6 +1590,57 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 414542198807909032}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &489416642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489416644}
+  - component: {fileID: 489416643}
+  m_Layer: 0
+  m_Name: Force Camera Ratios
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &489416643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489416642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e188ee899633d0b49870a5ae38b7359d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ratio: {x: 16, y: 9}
+  forceRatioOnAwake: 1
+  listenForWindowChanges: 1
+  createCameraForLetterBoxRendering: 1
+  findCamerasAutomatically: 1
+  letterBoxCameraColor: {r: 0, g: 0, b: 0, a: 1}
+  cameras: []
+  letterBoxCamera: {fileID: 0}
+--- !u!4 &489416644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489416642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,7 +1694,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13.307971
+  orthographic size: 17.169682
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3236,16 +3287,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e13f08f3f44922d4fa82da0558e035b1, type: 2}
-    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: playerNum
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3274018842467015810, guid: 6a734dbc5219b49469f740027851abc8,
         type: 3}
       propertyPath: m_Color.r
@@ -3261,6 +3302,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.7535238
       objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: playerNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e13f08f3f44922d4fa82da0558e035b1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a734dbc5219b49469f740027851abc8, type: 3}
 --- !u!1001 &1330322352
@@ -3608,16 +3659,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7da9cee36efcccf4dab1ac3dafca8c24, type: 2}
-    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
-        type: 3}
-      propertyPath: playerNum
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 3274018842467015810, guid: 6a734dbc5219b49469f740027851abc8,
         type: 3}
       propertyPath: m_Color.r
@@ -3633,6 +3674,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367152, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: playerNum
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348399936802367153, guid: 6a734dbc5219b49469f740027851abc8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7da9cee36efcccf4dab1ac3dafca8c24, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a734dbc5219b49469f740027851abc8, type: 3}
 --- !u!1001 &1464836133
