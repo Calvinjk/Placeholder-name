@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // THIS SCRIPT ONLY WORKS WHEN THERE IS A GAMEMANAGER IN THE SCENE
-public class KillBoxes : MonoBehaviour {
+public class GoalLocation : MonoBehaviour {
 
+    
     private GameManager gm;
 
     // The moment this object is created, find the GameManager and store a reference to it
@@ -13,7 +14,7 @@ public class KillBoxes : MonoBehaviour {
     }
 
     // This function gets called by Unity the moment ANY collider enters the boundaries of this one.
-    void OnCollisionEnter2D(Collision2D collider){
-        gm.KillPlayer(collider.gameObject);
+    void OnCollisionEnter2D(Collision2D collider) {
+        gm.CompleteLevel();
     }
 }
